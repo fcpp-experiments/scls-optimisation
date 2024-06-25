@@ -47,9 +47,10 @@ namespace somewhere {
 //! @brief Oracle implementation.
 struct oracle {
     FUN bool operator()(ARGS, bool, bool val) const { CODE
+        nbr(CALL, true);
         return val;
     }
-    FUN_EXPORT export_t = export_list<>;
+    FUN_EXPORT export_t = export_list<bool>;
 };
 
 //! @brief State-of-the-art baseline implementation.

@@ -4,7 +4,7 @@
  * @file setup.hpp
  * @brief Network configuration of the experimental evaluation.
  */
-
+#define FCPP_TRACE 32
 #include "lib/fcpp.hpp"
 #include "lib/somewhere.hpp"
 
@@ -93,9 +93,9 @@ GEN_EXPORT(F) reporter_s = storage_list<
 //! @brief Main function.
 MAIN() {
     using namespace tags;
-    hops_t diameter = node.net.storage(hops{});
-    real_t infospeed = 70;
-    int replicas = 3;
+    hops_t diameter = node.net.storage(hops{}) * 2; // hops
+    real_t infospeed = 2; // hop/s
+    int replicas = 3; // it can be a variable (
 
     // random walk into a given rectangle with given speed
     rectangle_walk(CALL, make_vec(0,0), make_vec(1,1)*node.net.storage(side{}), node.net.storage(speed{}), 1);
@@ -180,7 +180,6 @@ using algorithm_aggr = storage_list<
     msg_size<T>,       aggregator::mean<double>
 >;
 using aggregator_t = storage_list<
-    node_size, aggregator::mean<double>,
     algorithm_aggr<coordination::somewhere::oracle>,
     algorithm_aggr<coordination::somewhere::baseline>,
     algorithm_aggr<coordination::somewhere::knowledge_free>,

@@ -17,10 +17,10 @@ int main() {
     //! @brief The list of initialisation values to be used for simulations.
     auto init_list = batch::make_tagged_tuple_sequence(
         batch::arithmetic<option::seed >(0, 9, 1),      // 10 different random seeds
-        batch::arithmetic<option::speed>(0, 48, 2, 10), // 25 different speeds
-        batch::arithmetic<option::dens >(5, 29, 1, 10), // 25 different densities
-        batch::arithmetic<option::hops >(1, 25, 1, 10), // 25 different hop sizes
-        batch::arithmetic<option::tvar >(0, 48, 2, 10), // 25 different time variances
+        batch::arithmetic<option::speed>(0, 48, 4, 10), // 25 different speeds
+        batch::arithmetic<option::dens >(5, 20, 2, 10), // 25 different densities (29)
+        batch::arithmetic<option::hops >(1, 10, 2, 10), // 25 different hop sizes (25)
+        batch::arithmetic<option::tvar >(0, 48, 4, 10), // 25 different time variances
         // generate output file name for the run
         batch::stringify<option::output>("output/batch", "txt"),
         // computes side length from hops
@@ -32,6 +32,6 @@ int main() {
     //! @brief Runs the given simulations.
     batch::run(comp_t{}, init_list);
     //! @brief Builds the resulting plots.
-    std::cout << plot::file("batch", p.build());
+    std::cout << plot::file("batch", p.build(), { {"LOG_LIN", "1"} });
     return 0;
 }
